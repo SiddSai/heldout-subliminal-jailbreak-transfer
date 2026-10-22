@@ -1,0 +1,16 @@
+# Reproducible 2025-era CUDA 12.4 stack for the H100 pilot.
+# Install Torch from the PyTorch CUDA index first; then install this file.
+numpy==1.26.4
+pyarrow==18.1.0
+datasets==3.2.0
+absl-py
+immutabledict
+langdetect
+nltk
+huggingface_hub==0.27.0
+transformers==4.46.3
+accelerate==1.2.1
+trl==0.12.2
+vllm==0.7.0
+openai>=1.40,<3
+PyYAML>=6.0

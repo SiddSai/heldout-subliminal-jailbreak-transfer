@@ -1,0 +1,14 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/raw/
+data/interim/
+data/processed/
+checkpoints/
+results/raw/
+results/generations/
+wandb/
+upstreams/*
+!upstreams/README.md

@@ -1,0 +1,11 @@
+# Standalone manifest source for root-selection quality measurements. The
+# freezing script resolves FILL_ to the exact Hub commit and writes it into
+# every retained row plus records/artifact_registry.csv.
+root_quality_source:
+  name: allenai/wildguardmix
+  config: wildguardtest
+  split: test
+  revision: FILL_WITH_IMMUTABLE_HF_COMMIT
+  harmful_rows: 250
+  benign_rows: 250
+  seed: 20261025

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthetic-data-vulnerability-transfer"
+version = "0.1.0"
+description = "Reproducible A/A-prime synthetic safety post-training pilot"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+  "datasets==3.2.0",
+  "absl-py",
+  "immutabledict",
+  "langdetect",
+  "nltk",
+  "huggingface_hub==0.27.0",
+  "numpy==1.26.4",
+  "openai>=1.40,<3",
+  "pyarrow==18.1.0",
+  "PyYAML>=6.0",
+  "torch==2.5.1",
+  "transformers==4.46.3",
+]
+
+[project.optional-dependencies]
+train = ["accelerate==1.2.1", "trl==0.12.2"]
+serve = ["vllm==0.7.0"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
