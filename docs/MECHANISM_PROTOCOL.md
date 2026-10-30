@@ -72,6 +72,50 @@ projection of each student-source contrast onto the repair update. In
 particular, `student_Aprime_opposes_repair_fraction` is positive when the
 source swap update points against the repair vector.
 
+## Stage 4: discriminating correlational hypotheses
+
+Stage 4 does not patch activations or weights. It tests four alternatives that
+make different predictions about the completed 2×2 result.
+
+1. **Conditional refusal gate.** `analyze_gate_trajectory.py` evaluates every
+   checkpoint on the same A-prime-root-derived harmfulness/refusal axes. The
+   three candidate causal layers are selected only on fit behaviors by the
+   most negative past-tense refusal change relative to direct-harm and benign
+   control changes; confirmation values are not used to select them.
+2. **Threshold/basin response.** `build_teacher_mixture_sweep.py` constructs
+   nested 0/25/50/75/100% A-source teacher mixtures. Every arm uses the same
+   original paired-safe prompt identities, 5,000 identical common rows, and
+   A-prime initialization. `run_threshold_mixture_sweep.sh` trains all five,
+   scores the frozen refusal axis, and evaluates the uniform GPT-4.1-mini
+   PAIR-rule final-ASR endpoint. It is a controlled source-dose experiment,
+   not a circuit intervention.
+3. **Output-readout competition.** `analyze_mode_competition.py` derives two
+   vocabularies solely from A-prime-root fit logits: tokens enriched by direct
+   harmful versus benign prompts at the post-instruction state, and vice
+   versa. It measures their probability mass on confirmation prompts for all
+   models. This avoids hand-written refusal phrases; it is still a descriptive
+   readout, not evidence that individual tokens cause the effect.
+4. **Localized functional circuit.**
+   `analyze_functional_delta_attribution.py` computes the first-order
+   directional derivative `grad refusal_score dot delta_theta` per module for
+   the repair update and each fixed-recipient teacher-source update. This is
+   attribution-patching-style screening; module scores nominate later exact
+   interventions and are not causal findings themselves.
+
+The gate, competition, and functional-attribution analyses never read the
+final-transfer panel. Only the predeclared behavioral endpoint of the
+independently trained dose sweep reads it.
+
+```bash
+# Hypotheses 1, 3, and 4; uses the stage-2 caches already on the VM.
+bash scripts/run_mechanism_stage4_correlational.sh configs/mechanism.5pct.yaml
+
+# Hypothesis 2; five matched 7k-row SFT runs plus uniform final ASR scoring.
+bash scripts/run_threshold_mixture_sweep.sh \
+  configs/student_stage.gemma2-2b.5pct.frozen.yaml \
+  configs/mechanism.5pct.yaml
+```
+
 ## Run on the 8×A100 VM
 
 ```bash
@@ -94,6 +138,12 @@ not load models on GPU.
   `upstreams/refusal_direction` at `9d852fae1a9121c78b29142de733cb1340770cc3`
 - Zhao et al. harmfulness/refusal code:
   `upstreams/harmfulness_refusal` at `eff841e063e5a59b8dbc094060923005393b1c36`
+
+The functional-localization metric adopts the screening principle behind
+attribution patching: gradients measure output sensitivity and actual update
+differences measure the available perturbation. Exact activation patching is
+the later causal test; TransformerLens' released `patching.py` documents the
+corresponding clean/corrupt intervention protocol.
 
 The scripts cite these artifacts in their manifests. The upstream directories
 remain excluded from this repository's Git history; clone them with the setup

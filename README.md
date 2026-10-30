@@ -78,3 +78,9 @@ direction geometry, and repair-versus-student parameter-delta alignment. It is
 not a causal intervention experiment. The exact definitions, safeguards
 against final-transfer leakage, released-artifact revisions, and the three
 commands are in [`docs/MECHANISM_PROTOCOL.md`](docs/MECHANISM_PROTOCOL.md).
+
+That protocol also includes four hypothesis-discrimination tests: shared-axis
+refusal-gate trajectories, a nested teacher-mixture dose sweep, data-derived
+post-instruction output-readout competition, and first-order functional
+parameter attribution. Exact activation/weight patching is intentionally
+deferred until those correlational tests nominate a falsifiable target.
