@@ -69,3 +69,12 @@ The exact source revisions are recorded in `docs/UPSTREAMS.md`. Do not update
 them inside a run. See [`docs/PILOT_PROTOCOL.md`](docs/PILOT_PROTOCOL.md) for
 the order of operations and [`configs/pilot.yaml`](configs/pilot.yaml) for the
 fixed, editable choices.
+
+## Correlational mechanism analysis
+
+The canonical 5% 2×2 now has a frozen three-stage correlational analysis:
+global/attack-conditioned mKNN representation similarity, harmfulness/refusal
+direction geometry, and repair-versus-student parameter-delta alignment. It is
+not a causal intervention experiment. The exact definitions, safeguards
+against final-transfer leakage, released-artifact revisions, and the three
+commands are in [`docs/MECHANISM_PROTOCOL.md`](docs/MECHANISM_PROTOCOL.md).

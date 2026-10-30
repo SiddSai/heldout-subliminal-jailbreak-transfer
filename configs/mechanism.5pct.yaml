@@ -1,0 +1,49 @@
+# Frozen analysis specification for the canonical 5% 2x2 mechanism study.
+# This file contains no model outputs or labels from the final-transfer panel.
+
+model:
+  system_prompt: ""
+  tokenizer_use_fast: true
+
+mechanism:
+  seed: 20261030
+  output_root: results/mechanism/5pct
+  activation_root: data/interim/mechanism/5pct
+  max_prompt_tokens: 4096
+  activation_batch_size: 8
+  mknn:
+    # Primary Angell--Brinkmann--He replication settings.
+    alpaca_rows: 10000
+    primary_layer_fraction: 0.8
+    primary_k: 100
+    # Secondary, attack-conditioned panel is much smaller.
+    calibration_k: 20
+    distance_chunk_size: 512
+  calibration:
+    # This is a development panel only. The final-transfer behaviors must be
+    # disjoint and are checked by the panel-freezing script.
+    fit_fraction: 0.70
+    benign_dataset: tatsu-lab/alpaca
+    benign_split: train
+  upstreams:
+    past_tense: upstreams/llm-past-tense
+    past_tense_commit: 179e305ddeecbfbd4d7c05fab626faf9b2ac5f44
+    refusal_direction: upstreams/refusal_direction
+    refusal_direction_commit: 9d852fae1a9121c78b29142de733cb1340770cc3
+    harmfulness_refusal: upstreams/harmfulness_refusal
+    harmfulness_refusal_commit: eff841e063e5a59b8dbc094060923005393b1c36
+    platonic_rep: upstreams/platonic-rep
+    platonic_rep_commit: dcd76ba3c950c1b197a2ae8b1c6713535c94ecf9
+  models:
+    A_root: checkpoints/A_sham_0p050_fixed20k
+    Aprime_root: checkpoints/Aprime_0p050_fixed20k
+    A_to_A: checkpoints/student_5pct_A_to_A
+    Aprime_to_A: checkpoints/student_5pct_Aprime_to_A
+    A_to_Aprime: checkpoints/student_5pct_from_A
+    Aprime_to_Aprime: checkpoints/student_5pct_from_Aprime
+
+panels:
+  alpaca: data/processed/mechanism/alpaca_10k.jsonl
+  calibration: data/processed/mechanism/calibration_triplets.jsonl
+  past_tense_dev: data/processed/past_tense/root_selection_dev.jsonl
+  past_tense_final: data/processed/past_tense/final_transfer_test.jsonl

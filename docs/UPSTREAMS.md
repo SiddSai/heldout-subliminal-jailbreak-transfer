@@ -9,6 +9,9 @@ new experiment ID if any upstream changes.
 | `allenai/open-instruct` | `af681ea4665171021817ec3f5da205ad2afa57ba` | released Tülu 3 SFT recipe and safety-source documentation |
 | `meta-llama/llama-cookbook` | `2f22a9eb030f92d0e99227e57e9a1123af1f9532` | released Llama Guard 3 local moderation interface |
 | `JailbreakBench/jailbreakbench` | `23dbdf6b19650521604456229bc1d9c4156c85c1` | released jailbreak/refusal judging conventions for final ASR |
+| `minyoungg/platonic-rep` | `dcd76ba3c950c1b197a2ae8b1c6713535c94ecf9` | Angell-style representation-neighborhood reference |
+| `andyrdt/refusal_direction` | `9d852fae1a9121c78b29142de733cb1340770cc3` | Arditi et al. difference-of-means refusal-direction reference |
+| `CHATS-lab/Llms_Encode_Harmfulness_Refusal_Separately` | `eff841e063e5a59b8dbc094060923005393b1c36` | Zhao et al. instruction/post-instruction harmfulness/refusal reference |
 
 ## Grounded choices
 
