@@ -17,7 +17,9 @@ mechanism:
     primary_layer_fraction: 0.8
     primary_k: 100
     # Secondary, attack-conditioned panel is much smaller.
-    calibration_k: 20
+    # 25 unique direct-harm goals remain after deduplication, so k=10 avoids
+    # a near-complete graph while staying comfortably above tiny neighborhoods.
+    calibration_k: 10
     distance_chunk_size: 512
   calibration:
     # This is a development panel only. The final-transfer behaviors must be

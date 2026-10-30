@@ -180,13 +180,14 @@ def score(args: argparse.Namespace) -> None:
                     "method": "euclidean_directed_knn_graph_jaccard",
                 }
             )
-    output = results_root / f"{args.panel_name}_mknn.csv"
+    # Retain sensitivity analyses rather than silently replacing a previous k.
+    output = results_root / f"{args.panel_name}_mknn_k{k}.csv"
     with output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
     json_manifest(
-        results_root / f"{args.panel_name}_mknn_manifest.json",
+        results_root / f"{args.panel_name}_mknn_k{k}_manifest.json",
         {
             "panel": args.panel_name,
             "feature_files": {label: str(feature_path(root, args.panel_name, label)) for label in labels},

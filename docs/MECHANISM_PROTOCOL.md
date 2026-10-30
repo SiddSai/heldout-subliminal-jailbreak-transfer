@@ -32,7 +32,7 @@ This implements the primary global setup of Angell, Brinkmann, and He,
 Jaccard `|E_A ∩ E_B| / |E_A ∪ E_B|`. We additionally write mean per-prompt
 neighbor overlap, but do not substitute it for graph Jaccard.
 
-The same estimator is run on the development calibration groups using `k=20`.
+The same estimator is run on the development calibration groups using `k=10`.
 This asks whether a global benign metric and an attack-relevant prompt region
 tell the same story. Direct goals repeated by past-tense restarts are deduped
 by frozen prompt hash for this kNN analysis only; stage 2 retains those rows

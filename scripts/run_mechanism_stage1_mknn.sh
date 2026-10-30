@@ -45,7 +45,7 @@ CUDA_VISIBLE_DEVICES=6 python scripts/analyze_mknn_similarity.py score \
   --config "$config" --panel-name alpaca_10k --k 100 \
   >logs/mechanism/stage1_score_alpaca.log 2>&1
 CUDA_VISIBLE_DEVICES=6 python scripts/analyze_mknn_similarity.py score \
-  --config "$config" --panel-name calibration --k 20 \
+  --config "$config" --panel-name calibration --k 10 \
   >logs/mechanism/stage1_score_calibration.log 2>&1
 
 echo "Stage 1 complete: results/mechanism/5pct/stage1_mknn/"
