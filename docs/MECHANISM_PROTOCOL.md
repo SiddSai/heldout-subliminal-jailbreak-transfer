@@ -84,11 +84,13 @@ make different predictions about the completed 2×2 result.
    control changes; confirmation values are not used to select them.
 2. **Threshold/basin response.** `build_teacher_mixture_sweep.py` constructs
    nested 0/25/50/75/100% A-source teacher mixtures. Every arm uses the same
-   original paired-safe prompt identities, 5,000 identical common rows, and
-   A-prime initialization. `run_threshold_mixture_sweep.sh` trains all five,
-   scores the frozen refusal axis, and evaluates the uniform GPT-4.1-mini
-   PAIR-rule final-ASR endpoint. It is a controlled source-dose experiment,
-   not a circuit intervention.
+   original paired-safe prompt identities and 5,000 identical common rows.
+   `run_threshold_mixture_sweep.sh` trains the five fixed-A-prime-recipient
+   cells; `run_threshold_mixture_sweep_A_recipient.sh` reuses those *exact
+   frozen mixture files* for the five fixed-A-recipient cells. Both score the
+   same frozen refusal axis and uniform GPT-4.1-mini PAIR-rule final-ASR
+   endpoint. This makes recipient initialization and source fraction an
+   interpretable 2D behavioral/representational response surface.
 3. **Output-readout competition.** `analyze_mode_competition.py` derives two
    vocabularies solely from A-prime-root fit logits: tokens enriched by direct
    harmful versus benign prompts at the post-instruction state, and vice
@@ -112,6 +114,12 @@ bash scripts/run_mechanism_stage4_correlational.sh configs/mechanism.5pct.yaml
 
 # Hypothesis 2; five matched 7k-row SFT runs plus uniform final ASR scoring.
 bash scripts/run_threshold_mixture_sweep.sh \
+  configs/student_stage.gemma2-2b.5pct.frozen.yaml \
+  configs/mechanism.5pct.yaml
+
+# Reciprocal curve: only after the A-prime-recipient sweep has built the
+# shared frozen source mixtures above.
+bash scripts/run_threshold_mixture_sweep_A_recipient.sh \
   configs/student_stage.gemma2-2b.5pct.frozen.yaml \
   configs/mechanism.5pct.yaml
 ```
